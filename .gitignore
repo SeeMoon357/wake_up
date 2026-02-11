@@ -1,0 +1,71 @@
+# ============================================
+# WakeUp DAO - Git 忽略文件
+# ============================================
+
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE 文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.classpath
+
+# 环境变量（敏感信息）
+.env
+.env.local
+.env*.local
+*.env
+
+# 依赖目录
+node_modules/
+.pnp
+.pnp.js
+
+# 构建输出
+dist/
+build/
+out/
+.next/
+
+# 测试覆盖率
+coverage/
+*.lcov
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Foundry 相关
+packages/foundry/cache/
+packages/foundry/out/
+packages/foundry/broadcast/**/31337/
+packages/foundry/broadcast/**/dry-run/
+
+# Next.js 相关
+packages/nextjs/.next/
+packages/nextjs/out/
+packages/nextjs/.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# 临时文件
+tmp/
+temp/
+*.tmp

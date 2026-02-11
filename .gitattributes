@@ -1,0 +1,47 @@
+# ============================================
+# WakeUp DAO - Git 属性配置
+# ============================================
+
+# 自动检测文本文件并规范化行尾
+* text=auto
+
+# Solidity 文件
+*.sol text eol=lf
+
+# TypeScript/JavaScript 文件
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+
+# Markdown 文件
+*.md text eol=lf
+
+# 配置文件
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Shell 脚本
+*.sh text eol=lf
+
+# 二进制文件
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
