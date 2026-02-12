@@ -207,18 +207,23 @@ contract WakeUpTest is Test {
     }
 
     function test_CheckIn_RevertIf_IntervalTooShort() public {
-        uint256 targetTime = block.timestamp + TOMORROW_7AM;
+        uint256 day1 = block.timestamp + TOMORROW_7AM;
         
         vm.prank(alice);
-        wakeup.join{value: DEPOSIT_AMOUNT}(targetTime);
+        wakeup.join{value: DEPOSIT_AMOUNT}(day1);
 
-        vm.warp(targetTime);
+        // 第一次打卡（成功）
+        vm.warp(day1);
+        uint256 day2 = day1 + 24 hours;
+        vm.prank(alice);
+        wakeup.checkIn(day2);
 
-        // Try to set next target only 6 hours away (below 12 hour minimum)
-        uint256 nextTarget = targetTime + 6 hours;
+        // 第二次打卡，尝试设定只有 12 小时后的时间（应该失败）
+        vm.warp(day2);
+        uint256 tooSoon = day2 + 12 hours; // 只有 12 小时，< 18 小时
         vm.prank(alice);
         vm.expectRevert(WakeUp.IntervalTooShort.selector);
-        wakeup.checkIn(nextTarget);
+        wakeup.checkIn(tooSoon);
     }
 
     function test_CheckIn_ThreeConsecutiveDays() public {

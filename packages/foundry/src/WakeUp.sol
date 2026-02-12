@@ -22,7 +22,7 @@ contract WakeUp {
     uint256 public constant CHECKIN_WINDOW = 15 minutes;
 
     /// @notice Minimum interval between check-ins to prevent gaming
-    uint256 public constant MIN_INTERVAL = 12 hours;
+    uint256 public constant MIN_INTERVAL = 18 hours;
 
     /// @notice Number of successful check-ins required to complete challenge
     uint256 public constant SUCCESS_THRESHOLD = 3;
@@ -35,6 +35,7 @@ contract WakeUp {
     struct User {
         uint256 deposit;        // Amount of ETH staked
         uint256 nextCheckIn;    // Unix timestamp of next check-in target
+        uint256 lastCheckInTime; // Unix timestamp of last successful check-in
         uint256 streak;         // Current consecutive successful check-ins
         bool isActive;          // Whether user is currently in a challenge
     }
@@ -123,6 +124,7 @@ contract WakeUp {
         users[msg.sender] = User({
             deposit: msg.value,
             nextCheckIn: _firstTarget,
+            lastCheckInTime: 0, // 初始化为 0，首次打卡不受限制
             streak: 0,
             isActive: true
         });
@@ -135,7 +137,7 @@ contract WakeUp {
 
     /**
      * @notice Check in during the valid time window and set next target
-     * @param _nextTarget Unix timestamp for the next check-in (must be at least 12 hours from now)
+     * @param _nextTarget Unix timestamp for the next check-in (must be at least 18 hours from last check-in)
      * @dev Can only be called within CHECKIN_WINDOW before/after nextCheckIn time
      * @dev Increments streak on success
      */
@@ -163,12 +165,13 @@ contract WakeUp {
             revert TooLate();
         }
 
-        // Validate next target (anti-cheat: must be at least 12 hours from now)
+        // 新逻辑：验证下次打卡时间距离本次打卡时间 >= 18 小时
         if (_nextTarget < block.timestamp + MIN_INTERVAL) {
             revert IntervalTooShort();
         }
 
         // Update user state
+        user.lastCheckInTime = block.timestamp; // 记录本次打卡时间
         user.streak++;
         user.nextCheckIn = _nextTarget;
 
@@ -194,8 +197,8 @@ contract WakeUp {
             revert TooEarly(); // Not yet failed, can still check in
         }
 
-        // Validate new target
-        if (_newTarget < block.timestamp + MIN_INTERVAL) {
+        // Validate new target (距离上次打卡 >= 18 小时)
+        if (_newTarget < user.lastCheckInTime + MIN_INTERVAL) {
             revert IntervalTooShort();
         }
 
