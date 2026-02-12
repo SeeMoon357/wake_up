@@ -1,4 +1,4 @@
-# 🎯 WakeUp DAO 快速参考
+# 🎯 WakeUp 快速参考
 
 ## 一键命令
 

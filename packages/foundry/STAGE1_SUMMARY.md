@@ -266,5 +266,5 @@ Etherscan: https://sepolia.etherscan.io/address/0x1234...5678
 
 **创建时间**: 2026-02-11  
 **作者**: AI Coding Assistant  
-**项目**: WakeUp DAO  
+**项目**: WakeUp  
 **阶段**: Stage 1 Complete ✅

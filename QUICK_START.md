@@ -1,4 +1,4 @@
-# 🚀 WakeUp DAO 快速启动指南
+# 🚀 WakeUp 快速启动指南
 
 ## 📋 前置准备
 
@@ -14,7 +14,7 @@
 
 1. 访问 https://cloud.walletconnect.com
 2. 点击右上角 "Sign Up" 或 "Log In"
-3. 创建新项目（Project Name: "WakeUp DAO"）
+3. 创建新项目（Project Name: "WakeUp"）
 4. 复制 **Project ID**（类似：`a1b2c3d4e5f6...`）
 
 ### 步骤 2: 配置环境变量（1 分钟）
@@ -207,7 +207,7 @@ wake_up/
 当你看到以下内容时，说明一切正常：
 
 ✅ 浏览器打开 http://localhost:3000  
-✅ 看到 "WakeUp DAO" 标题和欢迎页面  
+✅ 看到 "WakeUp" 标题和欢迎页面  
 ✅ 点击 "Connect Wallet" 能弹出钱包选择  
 ✅ 连接钱包后能看到统计信息  
 ✅ 能看到"加入挑战"表单  
@@ -226,7 +226,7 @@ wake_up/
 
 ## 🎊 恭喜！
 
-你的 WakeUp DAO 应用已经启动成功！
+你的 WakeUp 应用已经启动成功！
 
 现在你可以：
 - 🎮 测试所有功能
@@ -238,5 +238,5 @@ wake_up/
 
 ---
 
-**Built with ❤️ by WakeUp DAO Team**  
+**Built with ❤️ by WakeUp Team**  
 *让每个早晨都充满可能*

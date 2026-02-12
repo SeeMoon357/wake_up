@@ -1,4 +1,4 @@
-# 🌅 WakeUp DAO 前端
+# 🌅 WakeUp 前端
 
 基于 Next.js 14 + RainbowKit + Wagmi 构建的去中心化早起挑战应用前端。
 
@@ -229,4 +229,4 @@ MIT License
 
 ---
 
-**Built with ❤️ by WakeUp DAO Team**
+**Built with ❤️ by WakeUp Team**

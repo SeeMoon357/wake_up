@@ -1,4 +1,4 @@
-# 🌅 WakeUp DAO - Smart Contract
+# 🌅 WakeUp - Smart Contract
 
 > A decentralized wake-up challenge powered by Ethereum smart contracts
 

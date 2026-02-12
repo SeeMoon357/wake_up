@@ -2,7 +2,7 @@
 
 ## ✅ 前端框架搭建完成！
 
-恭喜！WakeUp DAO 的前端应用已经完成基础搭建。
+恭喜！WakeUp 的前端应用已经完成基础搭建。
 
 ---
 
@@ -297,5 +297,5 @@ NEXT_PUBLIC_ALCHEMY_API_KEY=your_alchemy_key (可选)
 
 ---
 
-**Built with ❤️ for WakeUp DAO**  
+**Built with ❤️ for WakeUp**  
 *让每个早晨都充满可能*

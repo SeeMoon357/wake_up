@@ -1,4 +1,4 @@
-# 🎉 欢迎来到 WakeUp DAO！
+# 🎉 欢迎来到 WakeUp！
 
 ## 🎊 Stage 1 已完成！
 

@@ -211,4 +211,4 @@ git commit -m "chore: 移除敏感文件"
 
 ---
 
-**Built with ❤️ for WakeUp DAO**
+**Built with ❤️ for WakeUp**

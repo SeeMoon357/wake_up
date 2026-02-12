@@ -1,4 +1,4 @@
-# 🚀 WakeUp DAO 部署检查清单
+# 🚀 WakeUp 部署检查清单
 
 ## Stage 1: 本地测试 ✅
 
