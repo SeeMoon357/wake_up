@@ -205,17 +205,12 @@ NEXT_PUBLIC_CONTRACT_ADDRESS=0x2F1e7B4BBEf1797f8E81fead4ef7913Ba2D23A9d
 - [x] 前端应用开发
 - [x] Sepolia 部署
 
-### 🚧 Phase 1.5: 产品化（进行中）
+### 🔮 Phase 2: 产品化 & 生态扩展
 - [ ] 邮件/Telegram 提醒
-- [ ] 奖励池机制
-- [ ] 数据分析面板
-- [ ] 部署到 Base L2
-
-### 🔮 Phase 2: 生态扩展
 - [ ] 多种挑战模式（7/30/90 天）
 - [ ] 成就 NFT 系统
-- [ ] DAO 治理
-- [ ] 移动端 App
+- [ ] 奖励池机制
+- [ ] 部署到 Base L2
 
 ## 🤝 贡献
 
@@ -242,9 +237,9 @@ MIT License - 详见 [LICENSE](./LICENSE) 文件
 
 ## 📞 联系方式
 
-- **项目主页**: https://github.com/你的用户名/wake_up
-- **问题反馈**: [GitHub Issues](https://github.com/你的用户名/wake_up/issues)
-- **讨论**: [GitHub Discussions](https://github.com/你的用户名/wake_up/discussions)
+- **项目主页**: https://github.com/SeeMoon357/wake_up
+- **问题反馈**: [GitHub Issues](https://github.com/SeeMoon357/wake_up/issues)
+- **讨论**: [GitHub Discussions](https://github.com/SeeMoon357/wake_up/discussions)
 
 ## 🌟 Star History
 
