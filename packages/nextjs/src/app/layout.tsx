@@ -6,12 +6,12 @@ import { Providers } from './providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'WakeUp DAO - 用区块链战胜起床困难症',
+  title: '醒了吗 - 用区块链战胜起床困难症',
   description: '通过质押 ETH 和智能合约的强制力，帮助你养成早起习惯',
-  keywords: ['Web3', 'DAO', '早起', '习惯养成', '区块链'],
-  authors: [{ name: 'WakeUp DAO Team' }],
+  keywords: ['Web3', 'DAO', '早起', '习惯养成', '区块链', '醒了吗'],
+  authors: [{ name: '醒了吗团队' }],
   openGraph: {
-    title: 'WakeUp DAO',
+    title: '醒了吗',
     description: '用区块链的力量，帮你战胜起床困难症',
     type: 'website',
   },

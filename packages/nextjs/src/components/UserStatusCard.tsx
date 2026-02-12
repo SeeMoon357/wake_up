@@ -114,12 +114,12 @@ export function UserStatusCard() {
 
           {/* 成功提示 */}
           {status === 4 && (
-            <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+            <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-300 rounded-xl p-4">
               <div className="flex items-center space-x-3">
                 <span className="text-3xl">🎉</span>
                 <div>
-                  <div className="font-bold text-purple-900">恭喜完成挑战！</div>
-                  <div className="text-sm text-purple-700">
+                  <div className="font-bold text-yellow-900">恭喜完成挑战！</div>
+                  <div className="text-sm text-yellow-700">
                     你可以提现 {formatETH(userData.deposit)} ETH 了
                   </div>
                 </div>

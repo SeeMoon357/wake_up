@@ -7,9 +7,20 @@ import { JoinCard } from '@/components/JoinCard';
 import { CheckInCard } from '@/components/CheckInCard';
 import { StatsView } from '@/components/StatsView';
 import { WithdrawCard } from '@/components/WithdrawCard';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const { isConnected, userData, userStatus } = useWakeUp();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 添加最小加载时间，避免页面闪烁
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800); // 至少显示 800ms
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
@@ -21,25 +32,39 @@ export default function Home() {
             <div className="flex items-center space-x-3">
               <span className="text-3xl">🌅</span>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">WakeUp DAO</h1>
+                <h1 className="text-xl font-bold text-gray-900">醒了吗</h1>
                 <p className="text-xs text-gray-500">用区块链战胜起床困难症</p>
               </div>
             </div>
 
-            {/* 连接钱包按钮 */}
-            <ConnectButton />
+            {/* 连接钱包按钮 + 网络标识 */}
+            <div className="flex items-center space-x-3">
+              {/* Sepolia 网络标识 */}
+              <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 bg-gray-100 rounded-lg border border-gray-200">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-gray-700">Sepolia Testnet</span>
+              </div>
+              
+              <ConnectButton />
+            </div>
           </div>
         </div>
       </nav>
 
       {/* 主内容区 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {!isConnected ? (
+        {isLoading ? (
+          // 加载状态
+          <div className="text-center py-20">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mb-4"></div>
+            <p className="text-gray-600">加载中...</p>
+          </div>
+        ) : !isConnected ? (
           // 未连接钱包时的欢迎页面
           <div className="text-center py-20 animate-fadeIn">
             <span className="text-8xl mb-6 block">🌅</span>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              欢迎来到 WakeUp DAO
+              欢迎来到「醒了吗」
             </h2>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
               通过质押 ETH 和智能合约的强制力，帮助你养成早起习惯。
@@ -136,7 +161,7 @@ export default function Home() {
       <footer className="border-t border-gray-200 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-gray-500 text-sm">
-            <p className="mb-2">Built with ❤️ by WakeUp DAO Team</p>
+            <p className="mb-2">Built with ❤️ by 醒了吗团队</p>
             <p>让每个早晨都充满可能</p>
             <div className="mt-4 space-x-4">
               <a

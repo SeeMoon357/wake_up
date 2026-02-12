@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useWakeUp } from '@/hooks/useWakeUp';
 import { timeStringToTimestamp, formatCountdown, getCurrentTimestamp } from '@/utils/timeUtils';
+import { TimePicker } from './TimePicker';
 
 /**
  * 打卡/重启卡片
@@ -92,25 +93,22 @@ export function CheckInCard({ isRestart = false }: { isRestart?: boolean }) {
           {/* 说明 */}
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-sm text-red-800">
             <div className="font-semibold mb-2">😢 错过了打卡时间</div>
-            <p className="text-xs">
+            <p className="text-xs mb-2">
               没关系！你可以重启挑战，押金不会被扣除，但连胜会重置为 0。
               设定一个新的起床时间，重新开始吧！
+            </p>
+            <p className="text-xs text-red-700">
+              ⏰ 提示：建议选择一个固定的起床时间，避免频繁调整
             </p>
           </div>
 
           {/* 新的起床时间 */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              ⏰ 新的起床时间（明天）
-            </label>
-            <input
-              type="time"
-              value={nextWakeTime}
-              onChange={(e) => setNextWakeTime(e.target.value)}
-              className="input"
-              disabled={isPending || isConfirming}
-            />
-          </div>
+          <TimePicker
+            label="⏰ 新的起床时间（明天）"
+            value={nextWakeTime}
+            onChange={setNextWakeTime}
+            disabled={isPending || isConfirming}
+          />
 
           {/* 错误提示 */}
           {error && (
@@ -173,21 +171,13 @@ export function CheckInCard({ isRestart = false }: { isRestart?: boolean }) {
         )}
 
         {/* 下次起床时间设置 */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            ⏰ 下次起床时间（明天）
-          </label>
-          <input
-            type="time"
-            value={nextWakeTime}
-            onChange={(e) => setNextWakeTime(e.target.value)}
-            className="input"
-            disabled={isPending || isConfirming || !canCheckIn}
-          />
-          <div className="mt-1 text-xs text-gray-500">
-            打卡的同时需要设定下一次的起床时间
-          </div>
-        </div>
+        <TimePicker
+          label="⏰ 下次起床时间（明天）"
+          value={nextWakeTime}
+          onChange={setNextWakeTime}
+          disabled={isPending || isConfirming || !canCheckIn}
+          description="打卡的同时需要设定下一次的起床时间"
+        />
 
         {/* 错误提示 */}
         {error && (
@@ -221,8 +211,11 @@ export function CheckInCard({ isRestart = false }: { isRestart?: boolean }) {
         {!canCheckIn && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-800">
             <div className="font-semibold mb-2">💡 温馨提示</div>
-            <p className="text-xs">
+            <p className="text-xs mb-2">
               打卡窗口将在目标时间前 15 分钟开启。请耐心等待，或者设置闹钟提醒自己！
+            </p>
+            <p className="text-xs text-blue-700">
+              ⏰ 注意：下次打卡时间需距离本次打卡 ≥ 18 小时
             </p>
           </div>
         )}

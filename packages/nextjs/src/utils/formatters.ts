@@ -74,7 +74,7 @@ export function getUserStatusColor(status: number): string {
     1: 'text-blue-500',
     2: 'text-green-500',
     3: 'text-red-500',
-    4: 'text-purple-500',
+    4: 'text-yellow-600',  // 金色
   };
   return colorMap[status] || 'text-gray-500';
 }
@@ -90,7 +90,7 @@ export function getUserStatusBgColor(status: number): string {
     1: 'bg-blue-100',
     2: 'bg-green-100',
     3: 'bg-red-100',
-    4: 'bg-purple-100',
+    4: 'bg-yellow-100',  // 金色背景
   };
   return colorMap[status] || 'bg-gray-100';
 }

@@ -28,7 +28,7 @@ export function StatsView() {
           <div className="text-5xl opacity-20">👥</div>
         </div>
         <div className="mt-3 text-xs text-blue-700">
-          和他们一起养成早起习惯！
+          让我们一起开启美好一天！
         </div>
       </div>
 

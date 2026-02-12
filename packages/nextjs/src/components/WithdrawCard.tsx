@@ -15,25 +15,25 @@ export function WithdrawCard() {
   };
 
   return (
-    <div className="card border-2 border-purple-300 bg-gradient-to-br from-purple-50 to-pink-50">
+    <div className="card border-2 border-yellow-400 bg-gradient-to-br from-yellow-50 to-amber-50">
       <div className="text-center space-y-6">
         {/* 庆祝图标 */}
         <div className="text-8xl animate-bounce">🎉</div>
 
         {/* 标题 */}
         <div>
-          <h3 className="text-2xl font-bold text-purple-900 mb-2">
+          <h3 className="text-2xl font-bold text-yellow-900 mb-2">
             恭喜完成挑战！
           </h3>
-          <p className="text-purple-700">
+          <p className="text-yellow-700">
             你已经连续打卡 3 天，可以提现押金了
           </p>
         </div>
 
         {/* 押金金额 */}
-        <div className="bg-white rounded-xl p-6 border-2 border-purple-200">
+        <div className="bg-white rounded-xl p-6 border-2 border-yellow-300 shadow-lg">
           <div className="text-sm text-gray-600 mb-2">💰 可提现金额</div>
-          <div className="text-4xl font-bold text-purple-600">
+          <div className="text-4xl font-bold text-yellow-600">
             {userData ? formatETH(userData.deposit) : '0'} ETH
           </div>
         </div>
@@ -42,7 +42,7 @@ export function WithdrawCard() {
         <button
           onClick={handleWithdraw}
           disabled={isPending || isConfirming}
-          className="btn-primary w-full bg-purple-500 hover:bg-purple-600"
+          className="btn-primary w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600"
         >
           {isPending || isConfirming ? (
             <span className="flex items-center justify-center">

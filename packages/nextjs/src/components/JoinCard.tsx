@@ -5,6 +5,7 @@ import { useWakeUp } from '@/hooks/useWakeUp';
 import { parseETHInput } from '@/utils/formatters';
 import { timeStringToTimestamp } from '@/utils/timeUtils';
 import { formatEther } from 'viem';
+import { TimePicker } from './TimePicker';
 
 /**
  * 加入挑战卡片
@@ -85,21 +86,13 @@ export function JoinCard() {
         </div>
 
         {/* 起床时间输入 */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            ⏰ 明天的起床时间
-          </label>
-          <input
-            type="time"
-            value={wakeTime}
-            onChange={(e) => setWakeTime(e.target.value)}
-            className="input"
-            disabled={isPending || isConfirming}
-          />
-          <div className="mt-1 text-xs text-gray-500">
-            你需要在这个时间前后 15 分钟内打卡
-          </div>
-        </div>
+        <TimePicker
+          label="⏰ 明天的起床时间"
+          value={wakeTime}
+          onChange={setWakeTime}
+          disabled={isPending || isConfirming}
+          description="你需要在这个时间前后 15 分钟内打卡"
+        />
 
         {/* 错误提示 */}
         {error && (
@@ -135,6 +128,7 @@ export function JoinCard() {
             <li>• 连续打卡 3 天后可全额提现</li>
             <li>• 错过打卡可以重启挑战（押金不扣除）</li>
             <li>• 打卡窗口为目标时间前后 15 分钟</li>
+            <li>• ⏰ 两次打卡间隔需 ≥ 18 小时（建议固定时间）</li>
           </ul>
         </div>
       </div>
