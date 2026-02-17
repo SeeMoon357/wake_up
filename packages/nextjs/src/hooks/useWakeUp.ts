@@ -1,12 +1,23 @@
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { CONTRACT_ADDRESS } from '@/config/wagmi';
-import WakeUpABI from '@/contracts/WakeUp.json';
+import WakeUpABIJson from '@/contracts/WakeUp.json';
 import { useEffect, useState } from 'react';
+import type { Abi } from 'viem';
+
+type AbiContainer = { abi: readonly unknown[] };
+
+// ABI 兼容：支持纯数组格式和 { abi: [...] } 格式
+const WakeUpABI = (
+  Array.isArray(WakeUpABIJson)
+    ? WakeUpABIJson
+    : (WakeUpABIJson as AbiContainer).abi
+) as Abi;
 
 // 用户数据类型
 export interface UserData {
   deposit: bigint;
   nextCheckIn: bigint;
+  lastCheckInTime: bigint;
   streak: bigint;
   isActive: boolean;
 }
@@ -37,7 +48,7 @@ export function useWakeUp() {
   // 读取用户数据
   const { data: userData, refetch: refetchUser } = useReadContract({
     address: CONTRACT_ADDRESS,
-    abi: WakeUpABI.abi,
+    abi: WakeUpABI,
     functionName: 'getUser',
     args: address ? [address] : undefined,
     query: {
@@ -48,7 +59,7 @@ export function useWakeUp() {
   // 读取用户状态
   const { data: userStatus, refetch: refetchStatus } = useReadContract({
     address: CONTRACT_ADDRESS,
-    abi: WakeUpABI.abi,
+    abi: WakeUpABI,
     functionName: 'getUserStatus',
     args: address ? [address] : undefined,
     query: {
@@ -59,26 +70,26 @@ export function useWakeUp() {
   // 读取合约统计
   const { data: stats, refetch: refetchStats } = useReadContract({
     address: CONTRACT_ADDRESS,
-    abi: WakeUpABI.abi,
+    abi: WakeUpABI,
     functionName: 'getStats',
   }) as { data: [bigint, bigint, boolean] | undefined; refetch: () => void };
 
   // 读取常量
   const { data: minDeposit } = useReadContract({
     address: CONTRACT_ADDRESS,
-    abi: WakeUpABI.abi,
+    abi: WakeUpABI,
     functionName: 'MIN_DEPOSIT',
   });
 
   const { data: maxDeposit } = useReadContract({
     address: CONTRACT_ADDRESS,
-    abi: WakeUpABI.abi,
+    abi: WakeUpABI,
     functionName: 'MAX_DEPOSIT',
   });
 
   const { data: successThreshold } = useReadContract({
     address: CONTRACT_ADDRESS,
-    abi: WakeUpABI.abi,
+    abi: WakeUpABI,
     functionName: 'SUCCESS_THRESHOLD',
   });
 
@@ -100,6 +111,7 @@ export function useWakeUp() {
       localStorage.setItem(cacheKey, JSON.stringify({
         deposit: userData.deposit.toString(),
         nextCheckIn: userData.nextCheckIn.toString(),
+        lastCheckInTime: userData.lastCheckInTime.toString(),
         streak: userData.streak.toString(),
         isActive: userData.isActive,
       }));
@@ -118,6 +130,7 @@ export function useWakeUp() {
           setLocalUserData({
             deposit: BigInt(parsed.deposit),
             nextCheckIn: BigInt(parsed.nextCheckIn),
+            lastCheckInTime: BigInt(parsed.lastCheckInTime || 0),
             streak: BigInt(parsed.streak),
             isActive: parsed.isActive,
           });
@@ -138,7 +151,7 @@ export function useWakeUp() {
   const join = (firstTarget: bigint, depositAmount: bigint) => {
     writeContract({
       address: CONTRACT_ADDRESS,
-      abi: WakeUpABI.abi,
+      abi: WakeUpABI,
       functionName: 'join',
       args: [firstTarget],
       value: depositAmount,
@@ -152,7 +165,7 @@ export function useWakeUp() {
   const checkIn = (nextTarget: bigint) => {
     writeContract({
       address: CONTRACT_ADDRESS,
-      abi: WakeUpABI.abi,
+      abi: WakeUpABI,
       functionName: 'checkIn',
       args: [nextTarget],
     });
@@ -165,7 +178,7 @@ export function useWakeUp() {
   const restart = (newTarget: bigint) => {
     writeContract({
       address: CONTRACT_ADDRESS,
-      abi: WakeUpABI.abi,
+      abi: WakeUpABI,
       functionName: 'restart',
       args: [newTarget],
     });
@@ -177,7 +190,7 @@ export function useWakeUp() {
   const withdraw = () => {
     writeContract({
       address: CONTRACT_ADDRESS,
-      abi: WakeUpABI.abi,
+      abi: WakeUpABI,
       functionName: 'withdraw',
     });
   };

@@ -7,20 +7,9 @@ import { JoinCard } from '@/components/JoinCard';
 import { CheckInCard } from '@/components/CheckInCard';
 import { StatsView } from '@/components/StatsView';
 import { WithdrawCard } from '@/components/WithdrawCard';
-import { useState, useEffect } from 'react';
 
 export default function Home() {
   const { isConnected, userData, userStatus } = useWakeUp();
-  const [isLoading, setIsLoading] = useState(true);
-
-  // 添加最小加载时间，避免页面闪烁
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800); // 至少显示 800ms
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
@@ -53,13 +42,7 @@ export default function Home() {
 
       {/* 主内容区 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {isLoading ? (
-          // 加载状态
-          <div className="text-center py-20">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mb-4"></div>
-            <p className="text-gray-600">加载中...</p>
-          </div>
-        ) : !isConnected ? (
+        {!isConnected ? (
           // 未连接钱包时的欢迎页面
           <div className="text-center py-20 animate-fadeIn">
             <span className="text-8xl mb-6 block">🌅</span>
