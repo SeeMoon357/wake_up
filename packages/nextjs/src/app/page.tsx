@@ -148,7 +148,7 @@ export default function Home() {
             <p>让每个早晨都充满可能</p>
             <div className="mt-4 space-x-4">
               <a
-                href="https://sepolia.etherscan.io/address/0x2F1e7B4BBEf1797f8E81fead4ef7913Ba2D23A9d"
+                href="https://sepolia.etherscan.io/address/0xE5181de9751b82C86ce1f5D5bd2F7B183e8cBd37"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-500 hover:text-primary-600"
@@ -157,7 +157,7 @@ export default function Home() {
               </a>
               <span>•</span>
               <a
-                href="https://github.com"
+                href="https://github.com/SeeMoon357/wake_up"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-500 hover:text-primary-600"
