@@ -16,6 +16,18 @@ export function CheckInCard({ isRestart = false }: { isRestart?: boolean }) {
   const [error, setError] = useState('');
   const [countdown, setCountdown] = useState(0);
 
+  // 当已有链上 nextCheckIn 时，同步右侧时间选择器，避免与左侧显示不一致
+  useEffect(() => {
+    if (!userData?.nextCheckIn) return;
+
+    const localTime = new Date(Number(userData.nextCheckIn) * 1000);
+    const hours = String(localTime.getHours()).padStart(2, '0');
+    const minutes = String(localTime.getMinutes()).padStart(2, '0');
+    const syncedTime = `${hours}:${minutes}`;
+
+    setNextWakeTime((prev) => (prev === syncedTime ? prev : syncedTime));
+  }, [userData?.nextCheckIn]);
+
   // 倒计时逻辑
   useEffect(() => {
     if (!userData || !userStatus) return;
