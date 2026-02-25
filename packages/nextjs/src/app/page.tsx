@@ -28,6 +28,13 @@ export default function Home() {
 
             {/* 连接钱包按钮 + 网络标识 */}
             <div className="flex items-center space-x-3">
+              <a
+                href="/guide"
+                className="hidden sm:inline-flex items-center px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
+              >
+                使用指南
+              </a>
+
               {/* Sepolia 网络标识 */}
               <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 bg-gray-100 rounded-lg border border-gray-200">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
