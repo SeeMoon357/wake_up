@@ -22,10 +22,11 @@ export function UserStatusCard() {
     );
   }
 
-  const status = userStatus?.status ?? 0;
-  const statusText = getUserStatusText(status);
-  const statusColor = getUserStatusColor(status);
-  const statusBgColor = getUserStatusBgColor(status);
+  const status = userStatus?.status;
+  const isStatusLoading = userData.isActive && status === undefined;
+  const statusText = isStatusLoading ? '同步中' : getUserStatusText(status ?? 0);
+  const statusColor = isStatusLoading ? 'text-amber-700' : getUserStatusColor(status ?? 0);
+  const statusBgColor = isStatusLoading ? 'bg-amber-100' : getUserStatusBgColor(status ?? 0);
 
   return (
     <div className="card space-y-6">
@@ -126,6 +127,7 @@ export function UserStatusCard() {
               </div>
             </div>
           )}
+
         </div>
       )}
     </div>

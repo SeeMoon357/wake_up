@@ -53,6 +53,8 @@ export function useWakeUp() {
     args: address ? [address] : undefined,
     query: {
       enabled: !!address,
+      refetchInterval: 5000,
+      refetchOnWindowFocus: true,
     },
   }) as { data: UserData | undefined; refetch: () => void };
 
@@ -64,6 +66,8 @@ export function useWakeUp() {
     args: address ? [address] : undefined,
     query: {
       enabled: !!address,
+      refetchInterval: 5000,
+      refetchOnWindowFocus: true,
     },
   }) as { data: [number, bigint] | undefined; refetch: () => void };
 
@@ -72,6 +76,10 @@ export function useWakeUp() {
     address: CONTRACT_ADDRESS,
     abi: WakeUpABI,
     functionName: 'getStats',
+    query: {
+      refetchInterval: 10000,
+      refetchOnWindowFocus: true,
+    },
   }) as { data: [bigint, bigint, boolean] | undefined; refetch: () => void };
 
   // 读取常量
@@ -213,6 +221,20 @@ export function useWakeUp() {
       }, 2000);
     }
   }, [isConfirmed]);
+
+  // 页面重新回到前台时主动刷新，避免移动端后台恢复后状态滞后
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        refetchAll();
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, [address]);
 
   // ==================== 返回值 ====================
 
