@@ -184,7 +184,7 @@ export function CheckInCard({ isRestart = false }: { isRestart?: boolean }) {
 
         {/* 下次起床时间设置 */}
         <TimePicker
-          label="⏰ 下次起床时间（明天）"
+          label="⏰ 起床时间"
           value={nextWakeTime}
           onChange={setNextWakeTime}
           disabled={isPending || isConfirming || !canCheckIn}
