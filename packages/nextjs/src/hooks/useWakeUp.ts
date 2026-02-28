@@ -1,4 +1,4 @@
-import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useAccount, useBlockNumber, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { CONTRACT_ADDRESS } from '@/config/wagmi';
 import WakeUpABIJson from '@/contracts/WakeUp.json';
 import { useEffect, useState } from 'react';
@@ -42,6 +42,7 @@ export interface ContractStats {
 export function useWakeUp() {
   const { address, isConnected } = useAccount();
   const [localUserData, setLocalUserData] = useState<UserData | null>(null);
+  const { data: blockNumber } = useBlockNumber({ watch: true });
 
   // ==================== 读取函数 ====================
 
@@ -222,6 +223,13 @@ export function useWakeUp() {
     }
   }, [isConfirmed]);
 
+  // 新区块到来时刷新关键状态，避免窗口切换时 UI 卡在旧状态
+  useEffect(() => {
+    if (!address || blockNumber === undefined) return;
+    refetchUser();
+    refetchStatus();
+  }, [address, blockNumber]);
+
   // 页面重新回到前台时主动刷新，避免移动端后台恢复后状态滞后
   useEffect(() => {
     const onVisibilityChange = () => {
@@ -236,6 +244,30 @@ export function useWakeUp() {
     };
   }, [address]);
 
+  // 当链上状态短暂读取失败时，使用 nextCheckIn 本地推导，避免“同步中”阻塞打卡
+  const currentUserData = userData || localUserData;
+  const isUserStatusFallback = !userStatus && !!currentUserData;
+  const resolvedUserStatus = (() => {
+    if (userStatus) {
+      return {
+        status: userStatus[0],
+        timeInfo: userStatus[1],
+      };
+    }
+
+    if (!currentUserData) return null;
+    if (!currentUserData.isActive) return { status: 0, timeInfo: 0n };
+    if (currentUserData.streak >= 3n) return { status: 4, timeInfo: currentUserData.streak };
+
+    const now = BigInt(Math.floor(Date.now() / 1000));
+    const windowStart = currentUserData.nextCheckIn > 900n ? currentUserData.nextCheckIn - 900n : 0n;
+    const windowEnd = currentUserData.nextCheckIn + 900n;
+
+    if (now > windowEnd) return { status: 3, timeInfo: now - windowEnd };
+    if (now >= windowStart) return { status: 2, timeInfo: windowEnd - now };
+    return { status: 1, timeInfo: windowStart - now };
+  })();
+
   // ==================== 返回值 ====================
 
   return {
@@ -244,11 +276,9 @@ export function useWakeUp() {
     isConnected,
 
     // 用户数据（优先使用链上数据，否则使用缓存）
-    userData: userData || localUserData,
-    userStatus: userStatus ? {
-      status: userStatus[0],
-      timeInfo: userStatus[1],
-    } : null,
+    userData: currentUserData,
+    userStatus: resolvedUserStatus,
+    isUserStatusFallback,
 
     // 合约统计
     stats: stats ? {

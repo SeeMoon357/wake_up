@@ -10,7 +10,7 @@ import { TimePicker } from './TimePicker';
  * 根据用户状态显示打卡或重启界面
  */
 export function CheckInCard({ isRestart = false }: { isRestart?: boolean }) {
-  const { checkIn, restart, isPending, isConfirming, userData, userStatus } = useWakeUp();
+  const { checkIn, restart, isPending, isConfirming, userData, userStatus, isUserStatusFallback } = useWakeUp();
   
   const [nextWakeTime, setNextWakeTime] = useState('07:00');
   const [error, setError] = useState('');
@@ -218,6 +218,12 @@ export function CheckInCard({ isRestart = false }: { isRestart?: boolean }) {
             '⏰ 等待窗口开启'
           )}
         </button>
+
+        {isUserStatusFallback && (
+          <p className="text-xs text-amber-700">
+            状态同步中，当前使用本地时间判断（不影响打卡）
+          </p>
+        )}
 
         {/* 提示 */}
         {!canCheckIn && (
